@@ -48,14 +48,16 @@ export default function Game() {
   const [content, setContent] = useState<string>("●");
   const [squares, setSquares] = useState<any[][]>(Array(9).fill(null).map(() => Array(9).fill(null)));
   const [win, setWin] = useState<boolean>(false);
+  const [isNext, setIsNext] = useState<boolean>(false);
 
   const handleClickSquare = (x:number, y:number) => {
     if (win) return;
     
     const newSquares = squares.map(row => [...row]);
-    newSquares[x][y] = content;
+    newSquares[x][y] = isNext?"●":"○";
     setSquares(newSquares);
     setWin(winJudger(x, y, newSquares));
+    setIsNext(!isNext);
   } 
 
   const reset = () => {
@@ -66,9 +68,18 @@ export default function Game() {
 
   return (
     <main>
-      <Board squares={squares} squareClicked={handleClickSquare}/>
-      <button onClick={reset} className="font-bold">RESET</button>
-      <p>{win?"WIN":"N"}</p>
+      <div className="w-fit">
+        <Board squares={squares} squareClicked={handleClickSquare}/>
+        <div className="flex justify-between">
+          <p></p>
+          <p>{win?`${isNext?"●":"○"}-WIN !`: `${isNext?"●":"○"} TURN`}</p>
+          <button onClick={reset} className="font-bold">RESET</button>
+        
+        </div>
+        
+      </div>
+      
+      
     </main>
   );
 }
