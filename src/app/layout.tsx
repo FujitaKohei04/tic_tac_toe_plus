@@ -33,7 +33,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <header>
-          <div className="flex flex-row p-3 gap-6 font-bold text-3xl border justify-between items-start">
+          <div className="flex flex-row p-3 gap-6 font-bold text-3xl border-b justify-between items-start">
             <Link href="/">HOME</Link>
             <Thema />
           </div>
