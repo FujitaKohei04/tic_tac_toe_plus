@@ -9,7 +9,7 @@ export default function Chat({
     return (
         <div className="flec flex-col">
             {chat.map((c, i) => (
-                <Message key={i} name={c.name} message={c.message} />
+                <Message key={i} name={c.name} message={c.message} date={c.date}/>
             ))} 
         </div>
         

@@ -69,9 +69,9 @@ export default function Game() {
   const [win, setWin] = useState<boolean>(false);
   const [isNext, setIsNext] = useState<boolean>(false);
   const [moveCount, setMoveCount] = useState<number>(0);
-  //be carefulli "hands 0 = history 1"
+  //be carefulli "hands 0 = history 1" (moveCount 1)
   const [hands, setHands] = useState<number[][]>([]);
-  const [chat, setChat] = useState<{name:string, message:string}[]>([]);
+  const [chat, setChat] = useState<{name:string, message:string, date:Date}[]>([]);
 
   const currentSquare = history[moveCount];
   const currentHand = hands[moveCount];
@@ -125,7 +125,7 @@ export default function Game() {
     if (e.key === "Enter" && !e.shiftkey) {
       e.preventDefault();
       if(boxName && boxMessage) {
-        setChat([...chat, {name: boxName, message: boxMessage}]);
+        setChat([...chat, {name: boxName, message: boxMessage, date: new Date()}]);
         setBoxMessage("");
       }
     }
