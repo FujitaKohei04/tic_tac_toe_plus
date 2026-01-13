@@ -6,38 +6,57 @@ import Board from "./components/tictactoe/Board";
 import History from "./components/tictactoe/History";
 import Chat from "./components/tictactoe/chat/Chat";
 
-const winJudger = (x: number, y: number, squares: (string | null)[][]) => {
+//I think this function is to fix to return true
+//because false pattern is often happend 
+const winJudger = (XPutNow: number, YPutNow: number, boardAfterPutting: (string | null)[][]) => {
   let win = false;
-  const now = squares[x][y];
 
-  const vec = [
-    [1,  1],
-    [1,  0],
-    [0,  1],
-    [1, -1],
+  //who put stone now
+  const putter = boardAfterPutting[XPutNow][YPutNow];
+
+  //vecters to judge
+  const judgerVec = [
+    [1,  1], //lower right
+    [1,  0], //right
+    [0,  1], //down
+    [1, -1], //upper right
   ];
 
   for(let v = 0; v < 4; v++) {
-    let count = 1;
-    let [nowIndexX, nowIndexY] = [x, y];
+    let someStoneCounter = 1;
+
+    //setting place judged
+    let [judgingIndexX, judgingIndexY] = [XPutNow, YPutNow];
+
+
     while(!win) {
-      nowIndexX -= vec[v][0]; nowIndexY -= vec[v][1];
-      if (nowIndexX < 0 || nowIndexY < 0) break;
-      let judgeeSquare = squares[nowIndexX][nowIndexY];
-      if (!judgeeSquare || judgeeSquare !== now) break;
-      count++; 
-      if (count >= 5) {win = true; return true;}
+      //move place judged
+      judgingIndexX -= judgerVec[v][0]; judgingIndexY -= judgerVec[v][1];
+      
+      //out of bounds?
+      if (judgingIndexX < 0 || judgingIndexY < 0) break;
+      
+      let judgingSquare = boardAfterPutting[judgingIndexX][judgingIndexY];
+      //the place isn't null? && the place = putter? 
+      if (!judgingSquare || judgingSquare !== putter) break;
+      
+      someStoneCounter++; 
+      
+      //five?
+      if (someStoneCounter >= 5) {win = true; return true;}
     }
 
-    [nowIndexX, nowIndexY] = [x, y];
+    //return place put
+    [judgingIndexX, judgingIndexY] = [XPutNow, YPutNow];
 
     while(!win) {
-      nowIndexX += vec[v][0]; nowIndexY += vec[v][1];
-      if (nowIndexX >= squares[0].length || nowIndexY >= squares.length) break;
-      let judgeeSquare = squares[nowIndexX][nowIndexY];
-      if (!judgeeSquare || judgeeSquare !== now) break;
-      count++; 
-      if (count >= 5) {win = true; return true;}
+      judgingIndexX += judgerVec[v][0]; judgingIndexY += judgerVec[v][1];
+      //out of bounds?
+      if (judgingIndexX >= boardAfterPutting[0].length || judgingIndexY >= boardAfterPutting.length) break;
+      let judgeeSquare = boardAfterPutting[judgingIndexX][judgingIndexY];
+      if (!judgeeSquare || judgeeSquare !== putter) break;
+      someStoneCounter++; 
+      if (someStoneCounter >= 5) {win = true; return true;}
     }
   }
   
@@ -46,11 +65,11 @@ const winJudger = (x: number, y: number, squares: (string | null)[][]) => {
 
 
 export default function Game() {
-  const [content, setContent] = useState<string>("●");
   const [history, setHistory] = useState([Array(9).fill(null).map(() => Array(9).fill(null))]);
   const [win, setWin] = useState<boolean>(false);
   const [isNext, setIsNext] = useState<boolean>(false);
   const [moveCount, setMoveCount] = useState<number>(0);
+  //be carefulli "hands 0 = history 1"
   const [hands, setHands] = useState<number[][]>([]);
   const [chat, setChat] = useState<{name:string, message:string}[]>([]);
 
@@ -59,8 +78,9 @@ export default function Game() {
   const [boxName, setBoxName] = useState<string>("");
   const [boxMessage, setBoxMessage] = useState<string>("");
   
-
+  //when a square is clicked
   const handleClickSquare = (x:number, y:number) => {
+    //win? or all squares is filled? 
     if (win || currentSquare[x][y] || currentSquare.every((row) => (row.every(cell => cell !== null)))) return;
 
     setHands([...hands, [x, y]]);
@@ -75,6 +95,7 @@ export default function Game() {
     
   } 
 
+  //when pushed reset button
   const reset = () => {
     setHistory([Array(9).fill(null).map(() => Array(9).fill(null))]);
     setIsNext(false);
@@ -82,6 +103,7 @@ export default function Game() {
     setHands([]);
   }
 
+  //when jump to board of index's history
   const handlePlay = (index:number) => {
     setHistory([...history.slice(0, index+1)]);
     setHands([...hands.slice(0, index)]);
@@ -89,15 +111,16 @@ export default function Game() {
     setIsNext(Boolean(index%2));
   }
 
+  //when move, judge
   useEffect(() => {
     if(moveCount > 0) {
       setWin(winJudger(hands[moveCount-1][0], hands[moveCount-1][1], history[moveCount]));
     } else {
       setWin(false);
     }
-    
   }, [moveCount, hands, history]); 
 
+  //when Enter Key pushed in textarea
   const handleKey = (e:any) => {
     if (e.key === "Enter" && !e.shiftkey) {
       e.preventDefault();
