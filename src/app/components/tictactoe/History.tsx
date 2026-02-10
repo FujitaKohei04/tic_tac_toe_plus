@@ -10,6 +10,6 @@ export default function History({
     clickHistory: () => void;
 }) {
     return (
-        <button onClick={clickHistory}>{`${count}: ${x}-${y} ${count%2?"○":"●"}`}</button>
+        <button onClick={clickHistory}>{`${count}: ${x}-${y} ${count%2?"〇":"✕"}`}</button>
     );
 }

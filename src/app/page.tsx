@@ -81,18 +81,19 @@ export default function Game() {
   //when a square is clicked
   const handleClickSquare = (x:number, y:number) => {
     //win? or all squares is filled? 
-    if (win || currentSquare[x][y] || currentSquare.every((row) => (row.every(cell => cell !== null)))) return;
+    if (win || currentSquare[x][y] || currentSquare.every((row) => (row.every(cell => cell !== null)))) return false;
 
     setHands([...hands, [x, y]]);
     
     const newSquares = currentSquare.map(row => [...row]);
-    newSquares[x][y] = isNext?"●":"○";
+    newSquares[x][y] = isNext?"✕":"〇";
     
     setWin(winJudger(x, y, newSquares));
     setHistory([...history, newSquares]);
     setMoveCount(moveCount+1);
     setIsNext(!isNext);
-    
+
+    return true;
   } 
 
   //when pushed reset button
@@ -138,26 +139,26 @@ export default function Game() {
         <Board squares={currentSquare} squareClicked={handleClickSquare}/>
         <div className="flex justify-between">
           <p></p>
-          <p>{win?`${!isNext?"●":"○"} WIN !`: `${isNext?"●":"○"} TURN`}</p>
+          <p>{win?`${!isNext?"●":"○"} WIN !`: `${isNext?"✕":"〇"} TURN`}</p>
           <button onClick={reset} className="font-bold">RESET</button>
           
           
         </div>
-        <div className="flex flex-col gap-3 mt-8">
+        {/* <div className="flex flex-col gap-3 mt-8">
             <Chat chat={chat}/>
             <div className="flex items-center gap-2">
               <input type="text" maxLength={5} value={boxName} onChange={(e) => setBoxName(e.target.value)} placeholder="name" className="w-22 px-2 py-1 text-sm border rounded-md focus:outline-none"/>
               <input type="text" maxLength={30} value={boxMessage} onChange={(e) => setBoxMessage(e.target.value)} onKeyDown={(e) => handleKey(e)} className="flex-1 px-2 py-1 text-sm border rounded-md focus:outline-none"/>
             </div>
             
-          </div>
+          </div> */}
       </div>
-      <div className="flex flex-col gap-1 px-2">
+      {/* <div className="flex flex-col gap-1 px-2">
         {hands && hands.map((h, i) => (
           h && <History key={i} x={h[0]+1} y={h[1]+1} count={i+1} clickHistory={() => handlePlay(i+1)}/>
         ))}
         
-      </div>
+      </div> */}
       
       
     </main>

@@ -6,11 +6,11 @@ export default function Board({
     squareClicked,
 }:{
     squares: any[][],
-    squareClicked: (i:number, j:number) => void,
+    squareClicked: (i:number, j:number) => boolean,
 }) {
 
     return (
-        <div className={`flex flex-wrap w-144`}>
+        <div className={`flex flex-wrap w-90`}>
             {squares.map((col, i) => (
                 col.map((row, j) => (
                     <Square key={`${i}-${j}`} content={row} squareClicked={() => squareClicked(i, j)}/>
