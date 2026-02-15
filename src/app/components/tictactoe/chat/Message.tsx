@@ -8,9 +8,9 @@ export default function Message({
     date: Date,
 }) {
     return (
-        <div className="my-3">
+        <div className="my-1">
             <h1 className="leading-none">{`${name} : ${message}`}</h1>
-            <p className="opacity-40 text-xs">{`${date}`}</p>
+            <p className="opacity-40 text-xs">{`${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`}</p>
         </div>
     );
 }

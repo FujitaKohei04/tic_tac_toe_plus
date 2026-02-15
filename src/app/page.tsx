@@ -134,7 +134,7 @@ export default function Game() {
 
 
   return (
-    <main className="flex flex-row m-4">
+    <main className="flex flex-row m-2">
       <div className="w-fit">
         <Board squares={currentSquare} squareClicked={handleClickSquare}/>
         <div className="flex justify-between">
@@ -144,14 +144,14 @@ export default function Game() {
           
           
         </div>
-        {/* <div className="flex flex-col gap-3 mt-8">
+        <div className="flex flex-col gap-3 mt-8 fixed bottom-0 right-0 left-0 p-2">
             <Chat chat={chat}/>
-            <div className="flex items-center gap-2">
+            <div className="flex gap-2">
               <input type="text" maxLength={5} value={boxName} onChange={(e) => setBoxName(e.target.value)} placeholder="name" className="w-22 px-2 py-1 text-sm border rounded-md focus:outline-none"/>
               <input type="text" maxLength={30} value={boxMessage} onChange={(e) => setBoxMessage(e.target.value)} onKeyDown={(e) => handleKey(e)} className="flex-1 px-2 py-1 text-sm border rounded-md focus:outline-none"/>
             </div>
             
-          </div> */}
+          </div>
       </div>
       {/* <div className="flex flex-col gap-1 px-2">
         {hands && hands.map((h, i) => (
