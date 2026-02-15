@@ -77,6 +77,8 @@ export default function Game() {
   const currentHand = hands[moveCount];
   const [boxName, setBoxName] = useState<string>("");
   const [boxMessage, setBoxMessage] = useState<string>("");
+
+  const [bottomTab, setBottomTab] = useState<number>(0);
   
   //when a square is clicked
   const handleClickSquare = (x:number, y:number) => {
@@ -132,6 +134,10 @@ export default function Game() {
     }
   }
 
+  const handleBottomTabSwitcher = (i:number) => {
+    setBottomTab(i);
+  }
+
 
   return (
     <main className="flex flex-row m-2">
@@ -144,21 +150,44 @@ export default function Game() {
           
           
         </div>
+        
+        
         <div className="flex flex-col gap-3 mt-8 fixed bottom-0 right-0 left-0 p-2">
-            <Chat chat={chat}/>
-            <div className="flex gap-2">
-              <input type="text" maxLength={5} value={boxName} onChange={(e) => setBoxName(e.target.value)} placeholder="name" className="w-22 px-2 py-1 text-sm border rounded-md focus:outline-none"/>
-              <input type="text" maxLength={30} value={boxMessage} onChange={(e) => setBoxMessage(e.target.value)} onKeyDown={(e) => handleKey(e)} className="flex-1 px-2 py-1 text-sm border rounded-md focus:outline-none"/>
+            <div className="flex flex-raw gap-2">
+              <button 
+                className="bottomTabButton"
+                onClick={() => handleBottomTabSwitcher(0)}
+              >chat</button>
+              <button 
+                className="bottomTabButton"
+                onClick={() => handleBottomTabSwitcher(1)}
+              >history</button>
             </div>
+
+            {bottomTab === 0?
+              <div className="">
+                <Chat chat={chat}/>
+                <div className="flex gap-2 mt-2">
+                  <input type="text" maxLength={5} value={boxName} onChange={(e) => setBoxName(e.target.value)} placeholder="name" className="w-22 px-2 py-1 text-sm border rounded-md focus:outline-none"/>
+                  <input type="text" maxLength={30} value={boxMessage} onChange={(e) => setBoxMessage(e.target.value)} onKeyDown={(e) => handleKey(e)} className="flex-1 px-2 py-1 text-sm border rounded-md focus:outline-none"/>
+                </div>
+              </div>
+
+              :bottomTab === 1?
+                <div className="flex flex-wrap gap-1 p-2 border rounded-md font-bold">
+                  {hands && hands.map((h, i) => (
+                    h && <History key={i} x={h[0]+1} y={h[1]+1} count={i+1} clickHistory={() => handlePlay(i+1)}/>
+                  ))}
+                  
+                </div>
+              :""
+            }
+            
+            
             
           </div>
       </div>
-      {/* <div className="flex flex-col gap-1 px-2">
-        {hands && hands.map((h, i) => (
-          h && <History key={i} x={h[0]+1} y={h[1]+1} count={i+1} clickHistory={() => handlePlay(i+1)}/>
-        ))}
-        
-      </div> */}
+      
       
       
     </main>

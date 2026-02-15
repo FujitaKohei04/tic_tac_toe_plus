@@ -25,6 +25,13 @@
   --foreground-hlf: #c0671375;
 }
 
+@layer button {
+  .bottomTabButton {
+    @apply border p-1 px-2 rounded-md font-bold;
+    @apply text-[var(--background)] bg-[var(--foreground)];
+  }
+}
+
 
 body {
   background: var(--background);

@@ -10,6 +10,8 @@ export default function History({
     clickHistory: () => void;
 }) {
     return (
-        <button onClick={clickHistory}>{`${count}: ${x}-${y} ${count%2?"〇":"✕"}`}</button>
+        <button
+            className="border rounded p-1" 
+            onClick={clickHistory}>{`${count}: ${x}-${y} ${count%2?"〇":"✕"}`}</button>
     );
 }
