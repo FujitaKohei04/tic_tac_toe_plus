@@ -166,7 +166,11 @@ export default function Game() {
                   onClick={() => handleBottomTabSwitcher(2)}
                 >history</button>
               </div>
-              <div>
+              <div className="flex flex-raw gap-2">
+                <button 
+                  onClick={() => handlePlay(moveCount-1)} 
+                  className="commonButton"
+                >←</button>
                 <button 
                   onClick={reset} 
                   className="commonButton"
