@@ -16,11 +16,13 @@
 [data-thema="LIGHT"] {
   --background: #dbe0e4;
   --foreground: #07263a;
+  --foreground-hlf: #b7c3cc;
 }
 
 [data-thema="DARK"] {
   --background: #171717;
   --foreground: #e77913;
+  --foreground-hlf: #c0671375;
 }
 
 
