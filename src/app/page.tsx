@@ -146,26 +146,34 @@ export default function Game() {
         <div className="flex justify-between">
           <p></p>
           <p>{win?`${!isNext?"●":"○"} WIN !`: `${isNext?"✕":"〇"} TURN`}</p>
-          <button onClick={reset} className="font-bold">RESET</button>
+          
           
           
         </div>
         
         
-        <div className="flex flex-col gap-3 mt-8 fixed bottom-0 right-0 left-0 p-2">
-            <div className="flex flex-raw gap-2">
-              <button 
-                className="bottomTabButton"
-                onClick={() => handleBottomTabSwitcher(0)}
-              >chat</button>
-              <button 
-                className="bottomTabButton"
-                onClick={() => handleBottomTabSwitcher(1)}
-              >history</button>
+        <div className="flex flex-col gap-3 mt-8 fixed bottom-0 right-0 left-0 p-2 bg-[var(--background)]">
+            <div className="flex justify-between">
+              <div className="flex flex-raw gap-2">
+                <button 
+                  className="bottomTabButton"
+                  onClick={() => handleBottomTabSwitcher(0)}
+                >chat</button>
+                <button 
+                  className="bottomTabButton"
+                  onClick={() => handleBottomTabSwitcher(1)}
+                >history</button>
+              </div>
+              <div>
+                <button 
+                  onClick={reset} 
+                  className="commonButton"
+                >RESET</button>
+              </div>
             </div>
 
             {bottomTab === 0?
-              <div className="">
+              <div className="h-35 overflow-y-auto">
                 <Chat chat={chat}/>
                 <div className="flex gap-2 mt-2">
                   <input type="text" maxLength={5} value={boxName} onChange={(e) => setBoxName(e.target.value)} placeholder="name" className="w-22 px-2 py-1 text-sm border rounded-md focus:outline-none"/>
@@ -174,11 +182,10 @@ export default function Game() {
               </div>
 
               :bottomTab === 1?
-                <div className="flex flex-wrap gap-1 p-2 border rounded-md font-bold">
+                <div className="grid grid-cols-4 content-start gap-1 p-2 border rounded-md font-bold h-35 overflow-y-auto">
                   {hands && hands.map((h, i) => (
                     h && <History key={i} x={h[0]+1} y={h[1]+1} count={i+1} clickHistory={() => handlePlay(i+1)}/>
                   ))}
-                  
                 </div>
               :""
             }

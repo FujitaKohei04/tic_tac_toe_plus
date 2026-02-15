@@ -30,6 +30,11 @@
     @apply border p-1 px-2 rounded-md font-bold;
     @apply text-[var(--background)] bg-[var(--foreground)];
   }
+
+  .commonButton {
+    @apply border p-1 px-2 rounded-md font-bold;
+    @apply text-[var(--foreground)] bg-[var(--background)];
+  }
 }
 
 
