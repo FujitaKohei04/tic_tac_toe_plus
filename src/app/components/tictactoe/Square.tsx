@@ -21,7 +21,9 @@ export default function Square({
 
 
     return (
-        <button onClick={handleClick} className={`border w-10 h-10 text-3xl flex items-center justify-center transition-colors
+        <button 
+            onClick={handleClick} 
+            className={`border w-full aspect-square text-[6cqw] flex items-center justify-center transition-colors
             ${isLight&&"bg-[var(--foreground-hlf)]"}`
         }>
             {content}

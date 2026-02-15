@@ -141,7 +141,7 @@ export default function Game() {
 
   return (
     <main className="flex flex-row m-2">
-      <div className="w-fit">
+      <div className="w-full">
         <Board squares={currentSquare} squareClicked={handleClickSquare}/>
         <div className="flex justify-between">
           <p></p>
@@ -158,10 +158,14 @@ export default function Game() {
                 <button 
                   className="bottomTabButton"
                   onClick={() => handleBottomTabSwitcher(0)}
-                >chat</button>
+                >✕</button>
                 <button 
                   className="bottomTabButton"
                   onClick={() => handleBottomTabSwitcher(1)}
+                >chat</button>
+                <button 
+                  className="bottomTabButton"
+                  onClick={() => handleBottomTabSwitcher(2)}
                 >history</button>
               </div>
               <div>
@@ -172,7 +176,7 @@ export default function Game() {
               </div>
             </div>
 
-            {bottomTab === 0?
+            {bottomTab === 1?
               <div className="h-35 overflow-y-auto">
                 <Chat chat={chat}/>
                 <div className="flex gap-2 mt-2">
@@ -181,7 +185,7 @@ export default function Game() {
                 </div>
               </div>
 
-              :bottomTab === 1?
+              :bottomTab === 2?
                 <div className="grid grid-cols-4 content-start gap-1 p-2 border rounded-md font-bold h-35 overflow-y-auto">
                   {hands && hands.map((h, i) => (
                     h && <History key={i} x={h[0]+1} y={h[1]+1} count={i+1} clickHistory={() => handlePlay(i+1)}/>
