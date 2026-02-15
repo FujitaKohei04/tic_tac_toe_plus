@@ -141,15 +141,13 @@ export default function Game() {
 
   return (
     <main className="flex flex-row m-2">
-      <div className="w-full">
-        <Board squares={currentSquare} squareClicked={handleClickSquare}/>
+      <div className="w-[70vmin] h-[70vmin] m-1 @container">
         <div className="flex justify-between">
           <p></p>
           <p>{win?`${!isNext?"●":"○"} WIN !`: `${isNext?"✕":"〇"} TURN`}</p>
-          
-          
-          
         </div>
+        <Board squares={currentSquare} squareClicked={handleClickSquare}/>
+        
         
         
         <div className="flex flex-col gap-3 mt-8 fixed bottom-0 right-0 left-0 p-2 bg-[var(--background)]">

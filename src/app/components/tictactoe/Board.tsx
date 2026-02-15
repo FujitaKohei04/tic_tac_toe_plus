@@ -10,7 +10,7 @@ export default function Board({
 }) {
 
     return (
-        <div className={`grid grid-cols-9 aspext-square w-full`}>
+        <div className={`grid grid-cols-9 aspext-square w-[70vmin] h-[70vmin]`}>
             {squares.map((col, i) => (
                 col.map((row, j) => (
                     <Square key={`${i}-${j}`} content={row} squareClicked={() => squareClicked(i, j)}/>
