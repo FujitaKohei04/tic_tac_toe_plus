@@ -108,10 +108,12 @@ export default function Game() {
 
   //when jump to board of index's history
   const handlePlay = (index:number) => {
-    setHistory([...history.slice(0, index+1)]);
-    setHands([...hands.slice(0, index)]);
-    setMoveCount(index);
-    setIsNext(Boolean(index%2));
+    if(index > -1 && index < 81 && history[index]) {
+      setHistory([...history.slice(0, index+1)]);
+      setHands([...hands.slice(0, index)]);
+      setMoveCount(index);
+      setIsNext(Boolean(index%2));
+    }
   }
 
   //when move, judge
@@ -166,6 +168,7 @@ export default function Game() {
                   onClick={() => handleBottomTabSwitcher(2)}
                 >history</button>
               </div>
+
               <div className="flex flex-raw gap-2">
                 <button 
                   onClick={() => handlePlay(moveCount-1)} 
